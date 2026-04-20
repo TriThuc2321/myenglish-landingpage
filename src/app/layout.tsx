@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Fraunces, Be_Vietnam_Pro, Caveat } from "next/font/google";
 import "./globals.css";
+import { HeroUIProvider } from "@heroui/system";
+import { ToastProvider } from "@heroui/toast";
 
 const fraunces = Fraunces({
   variable: "--font-display",
@@ -27,8 +29,19 @@ export const metadata: Metadata = {
   title: "MyEnglish — Better English, Better Life",
   description:
     "Trung tâm Anh ngữ MyEnglish tại Cần Thơ: lớp học nhỏ, giáo viên tận tâm, phương pháp chuẩn quốc tế cho học sinh tiểu học.",
-  icons: {
-    icon: "/favicon.ico",
+  openGraph: {
+    title: "MyEnglish — Better English, Better Life",
+    description:
+      "Trung tâm Anh ngữ MyEnglish tại Cần Thơ: lớp học nhỏ, giáo viên tận tâm, phương pháp chuẩn quốc tế cho học sinh tiểu học.",
+    type: "website",
+    locale: "vi_VN",
+    siteName: "MyEnglish",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MyEnglish — Better English, Better Life",
+    description:
+      "Trung tâm Anh ngữ MyEnglish tại Cần Thơ — lớp học nhỏ, giáo viên tận tâm cho học sinh tiểu học.",
   },
 };
 
@@ -40,10 +53,14 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${fraunces.variable} ${beVietnamPro.variable} ${caveat.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${beVietnamPro.variable} ${caveat.variable} light h-full antialiased`}
+      style={{ colorScheme: "light" }}
     >
-      <body className="min-h-full flex flex-col bg-paper text-[color:var(--ink)] selection:bg-[color:var(--brand-red)] selection:text-[color:var(--paper)]">
-        {children}
+      <body>
+        <HeroUIProvider>
+          <ToastProvider placement="top-center" toastOffset={30} />
+          {children}
+        </HeroUIProvider>
       </body>
     </html>
   );

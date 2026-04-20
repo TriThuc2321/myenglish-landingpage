@@ -1,116 +1,136 @@
-"use client";
-
 import Image from "next/image";
-import Link from "next/link";
-import { motion } from "motion/react";
-import logoVertical from "@/assets/images/logo_vertical.png";
+
+import { logos, site } from "@/app/_data/assets";
 
 export function Footer() {
+  const year = new Date().getFullYear();
   return (
-    <footer className="relative bg-[color:var(--ink)] text-[color:var(--paper)] pt-20 pb-10 overflow-hidden">
-      {/* Giant background type */}
-      <motion.div
+    <footer className="relative bg-secondary text-white">
+      <div
+        className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(circle_at_20%_0%,#fff_0%,transparent_50%),radial-gradient(circle_at_80%_100%,#cf242c_0%,transparent_50%)] pointer-events-none"
         aria-hidden
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 1.2 }}
-        className="pointer-events-none absolute inset-x-0 -bottom-8 text-center font-display italic text-[18vw] leading-[0.8] text-[color:var(--paper)]/[0.06] whitespace-nowrap"
-      >
-        MyEnglish
-      </motion.div>
+      />
 
-      <div className="relative mx-auto max-w-[1400px] px-5 lg:px-10">
-        <div className="grid grid-cols-12 gap-8">
-          <div className="col-span-12 md:col-span-5">
-            <Link href="#top" className="inline-flex items-center gap-4">
-              <span className="relative h-16 w-16 rounded-2xl bg-[color:var(--paper)] overflow-hidden">
+      <div className="container mx-auto relative py-14 lg:py-16">
+        <div className="grid md:grid-cols-[1.2fr_1fr_1fr] gap-10">
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="h-14 w-14 rounded-2xl bg-white grid place-items-center overflow-hidden">
                 <Image
-                  src={logoVertical}
-                  alt="MyEnglish"
-                  fill
-                  sizes="64px"
-                  className="object-contain p-1.5"
+                  src={logos.vertical}
+                  alt={site.name}
+                  className="h-11 w-11 object-contain"
                 />
-              </span>
-              <span className="font-display italic text-3xl">MyEnglish</span>
-            </Link>
-            <p className="mt-5 max-w-md text-[15px] leading-[1.8] text-[color:var(--paper)]/70">
-              Trung tâm Anh ngữ MyEnglish — nơi các em tiểu học ở Cần Thơ gặp
-              tiếng Anh lần đầu, yêu tiếng Anh trọn đời.
+              </div>
+              <div>
+                <div className="font-display font-bold text-2xl tracking-tight">
+                  {site.name}
+                </div>
+                <div className="font-script text-primary-300 text-lg -mt-1">
+                  Better English, Better Life
+                </div>
+              </div>
+            </div>
+            <p className="mt-5 text-white/70 max-w-md leading-relaxed">
+              Trung tâm Anh ngữ dành cho học sinh tiểu học tại TP. Cần Thơ.
+              Mỗi ngày đến lớp là một ngày vui, một bước tiến tiếng Anh.
             </p>
           </div>
 
-          <div className="col-span-6 md:col-span-3">
-            <p className="text-[11px] uppercase tracking-[0.28em] text-[color:var(--paper)]/60">
-              Khám phá
-            </p>
-            <ul className="mt-4 space-y-2">
-              {[
-                { href: "#about", label: "Về MyEnglish" },
-                { href: "#programs", label: "Chương trình" },
-                { href: "#activities", label: "Hoạt động" },
-                { href: "#honor", label: "Vinh danh" },
-                { href: "#openings", label: "Khai giảng" },
-              ].map((l) => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-[color:var(--paper)]/80 hover:text-[color:var(--sunshine)] transition-colors"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.18em] font-semibold text-white/50">
+              Liên hệ
+            </div>
+            <ul className="mt-4 space-y-3 text-white/85">
+              <li className="flex gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className="mt-0.5 text-primary-300 shrink-0">
+                  <path d="M12 21s-7-6.5-7-12a7 7 0 1 1 14 0c0 5.5-7 12-7 12z" stroke="currentColor" strokeWidth="1.6" />
+                  <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.6" />
+                </svg>
+                {site.address}
+              </li>
+              <li className="flex gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className="mt-0.5 text-primary-300 shrink-0">
+                  <path
+                    d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span>
+                  {site.hotlines.map((h, i) => (
+                    <span key={h}>
+                      <a
+                        href={`tel:${h.replace(/\s/g, "")}`}
+                        className="hover:text-primary-300 transition-colors"
+                      >
+                        {h}
+                      </a>
+                      {i < site.hotlines.length - 1 ? " · " : ""}
+                    </span>
+                  ))}
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden className="mt-0.5 text-primary-300 shrink-0">
+                  <path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.6-1.6h1.7V4.2c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.6V14h2.8v8h3.1z" />
+                </svg>
+                <a
+                  href={site.facebook}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="hover:text-primary-300 transition-colors"
+                >
+                  facebook.com/mye2021
+                </a>
+              </li>
             </ul>
           </div>
 
-          <div className="col-span-6 md:col-span-4">
-            <p className="text-[11px] uppercase tracking-[0.28em] text-[color:var(--paper)]/60">
-              Liên hệ
-            </p>
-            <ul className="mt-4 space-y-3 text-[color:var(--paper)]/80">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.18em] font-semibold text-white/50">
+              Khám phá
+            </div>
+            <ul className="mt-4 space-y-2 text-white/85">
               <li>
-                <Link
-                  href="tel:0907188212"
-                  className="font-display italic text-xl hover:text-[color:var(--sunshine)]"
-                >
-                  0907 188 212
-                </Link>
-                <span className="mx-2 opacity-40">/</span>
-                <Link
-                  href="tel:0939039947"
-                  className="font-display italic text-xl hover:text-[color:var(--sunshine)]"
-                >
-                  0939 039 947
-                </Link>
-              </li>
-              <li className="text-sm leading-relaxed">
-                37A Lê Hồng Phong, p. Thới An Đông,
-                <br />
-                TP. Cần Thơ
+                <a href="#programs" className="hover:text-primary-300 transition-colors">
+                  Chương trình
+                </a>
               </li>
               <li>
-                <Link
-                  href="https://www.facebook.com/mye2021"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline decoration-[color:var(--brand-red)] decoration-2 underline-offset-4 hover:text-[color:var(--sunshine)]"
-                >
-                  facebook.com/mye2021
-                </Link>
+                <a href="#activities" className="hover:text-primary-300 transition-colors">
+                  Hoạt động
+                </a>
+              </li>
+              <li>
+                <a href="#posters" className="hover:text-primary-300 transition-colors">
+                  Khai giảng
+                </a>
+              </li>
+              <li>
+                <a href="#honor" className="hover:text-primary-300 transition-colors">
+                  Vinh danh
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-primary-300 transition-colors">
+                  Liên hệ
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-[color:var(--paper)]/15 pt-8 text-xs text-[color:var(--paper)]/55">
-          <p>© {new Date().getFullYear()} MyEnglish — Better English, Better Life.</p>
-          <p className="font-script text-base text-[color:var(--sunshine)]">
-            made with ♥ in Cần Thơ
-          </p>
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-sm text-white/60">
+          <div>© {year} {site.name}. All rights reserved.</div>
+          <div className="font-script text-lg text-primary-300">
+            Better English, Better Life.
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+
+export default Footer;

@@ -1,153 +1,136 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
-import { Reveal } from "./Reveal";
-import { Star } from "./Decor";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, FreeMode } from "swiper/modules";
+import { useRef } from "react";
+import type { Swiper as SwiperInstance } from "swiper";
 
-import v1 from "@/assets/images/vinh_danh/1.jpg";
-import v2 from "@/assets/images/vinh_danh/2.jpg";
-import v3 from "@/assets/images/vinh_danh/3.jpg";
-import v4 from "@/assets/images/vinh_danh/4.jpg";
-import v5 from "@/assets/images/vinh_danh/5.jpg";
-import v6 from "@/assets/images/vinh_danh/6.jpg";
-import v7 from "@/assets/images/vinh_danh/7.jpg";
-import v8 from "@/assets/images/vinh_danh/8.jpg";
+import "swiper/css";
+import "swiper/css/free-mode";
 
-const HONORS = [v1, v2, v3, v4, v5, v6, v7, v8];
-const TITLES = [
-  "Cambridge Starters · 15/15",
-  "Top 3 Spelling Bee",
-  "IOE Cấp Tỉnh",
-  "Flyers · Merit",
-  "Movers · Distinction",
-  "Lớp trưởng tiếng Anh",
-  "Học sinh xuất sắc",
-  "Best Storyteller",
-];
+import { vinhDanhImages } from "@/app/_data/assets";
+import Reveal from "./Reveal";
 
 export function Honor() {
-  const row1 = [...HONORS, ...HONORS];
+  const swiperRef = useRef<SwiperInstance | null>(null);
+
   return (
     <section
       id="honor"
-      className="relative py-24 lg:py-32 bg-[color:var(--brand-indigo)] text-[color:var(--paper)] overflow-hidden"
+      className="relative py-20 lg:py-28 bg-cream overflow-hidden"
+      style={{ backgroundColor: "#fbf6ee" }}
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.85) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
-        }}
-      />
-
-      <div className="relative mx-auto max-w-[1400px] px-5 lg:px-10">
-        <div className="grid grid-cols-12 gap-8 items-end">
-          <div className="col-span-12 lg:col-span-7">
-            <Reveal>
-              <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.32em] text-[color:var(--paper)]/65">
-                <span className="h-px w-8 bg-[color:var(--paper)]/65" />§ 04 —
-                Vinh danh
-              </p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h2 className="mt-4 font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.95] tracking-[-0.02em]">
-                Những{" "}
-                <span className="italic text-[color:var(--sunshine)]">
-                  ngôi sao nhỏ
-                </span>
-                ,<br />
-                thành tích lớn.
-              </h2>
-            </Reveal>
-          </div>
-          <Reveal
-            delay={0.2}
-            className="col-span-12 lg:col-span-4 lg:col-start-9"
-          >
-            <p className="text-[17px] leading-[1.8] text-[color:var(--paper)]/75">
-              Chúng tôi tin rằng thành tích không phải là đích đến — mà là lời
-              chúc mừng cho một chặng đường dám học, dám thử và dám sai của mỗi
-              bạn nhỏ ở MyEnglish.
-            </p>
+      <div className="container mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 font-display font-bold text-xl text-primary">
+              <span className="h-px w-8 bg-primary" />
+              Vinh danh
+            </span>
+            <h2 className="mt-2 font-display font-bold tracking-tight text-balance text-4xl sm:text-5xl lg:text-6xl text-secondary max-w-2xl">
+              Thành tích
+              <span className="italic text-primary"> đáng tự hào</span>
+              <br />
+              của học viên.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} className="flex items-center gap-3">
+            <button
+              type="button"
+              aria-label="Trước"
+              onClick={() => swiperRef.current?.slidePrev()}
+              className="swiper-nav-btn"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M15 6l-6 6 6 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              aria-label="Sau"
+              onClick={() => swiperRef.current?.slideNext()}
+              className="swiper-nav-btn"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M9 6l6 6-6 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </Reveal>
         </div>
+      </div>
 
-        {/* Infinite marquee of honor photos */}
-        <div className="mt-16 lg:mt-20 -mx-5 lg:-mx-10 overflow-hidden">
-          <div className="flex w-[200%] animate-marquee-slow gap-5 px-5 lg:px-10">
-            {row1.map((img, i) => (
-              <figure
-                key={i}
-                className="group relative shrink-0 w-[220px] sm:w-[260px] lg:w-[460px] aspect-4/3 rounded-2xl overflow-hidden border-2 border-[color:var(--paper)]/20 bg-black"
-              >
+      <Reveal className="mt-14" delay={0.15}>
+        <Swiper
+          onSwiper={(s) => (swiperRef.current = s)}
+          modules={[Autoplay, FreeMode]}
+          slidesPerView="auto"
+          spaceBetween={20}
+          freeMode
+          loop
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          speed={900}
+          className="!px-4 md:!px-8"
+        >
+          {vinhDanhImages.map((img, i) => (
+            <SwiperSlide
+              key={i}
+              className="!w-[260px] sm:!w-[300px] lg:!w-[340px]"
+            >
+              <article className="group relative aspect-[10/7] rounded-[22px] overflow-hidden ring-1 ring-secondary/10 bg-white shadow-[0_20px_40px_-20px_rgba(15,16,32,0.3)]">
                 <Image
                   src={img}
-                  alt={TITLES[i % TITLES.length]}
+                  alt={`Vinh danh học viên ${i + 1}`}
                   fill
-                  sizes="300px"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="340px"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  placeholder="blur"
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                  <div className="flex items-center gap-2 text-[color:var(--paper)]">
-                    <Star
-                      size={18}
-                      color="var(--sunshine)"
-                      stroke="var(--sunshine)"
-                    />
-                    <span className="font-display italic text-sm leading-tight">
-                      {TITLES[i % TITLES.length]}
-                    </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/85 via-secondary/20 to-transparent opacity-90" />
+
+                <div className="absolute bottom-5 left-5 right-5 text-white">
+                  <div className="font-display text-xl font-semibold drop-shadow">
+                    Học viên MyEnglish
+                  </div>
+                  <div className="text-sm text-white/80">
+                    Thành tích tiêu biểu
                   </div>
                 </div>
-              </figure>
-            ))}
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.8 }}
-          className="mt-14 flex flex-wrap items-center justify-center gap-8 text-center"
-        >
-          <div className="flex items-center gap-3">
-            <span className="font-display text-5xl italic text-[color:var(--sunshine)] tabular">
-              200+
-            </span>
-            <span className="text-sm uppercase tracking-[0.22em] text-[color:var(--paper)]/70 text-left">
-              Học viên được
-              <br />
-              vinh danh
-            </span>
-          </div>
-          <span className="h-10 w-px bg-[color:var(--paper)]/20" />
-          <div className="flex items-center gap-3">
-            <span className="font-display text-5xl italic text-[color:var(--sunshine)] tabular">
-              18
-            </span>
-            <span className="text-sm uppercase tracking-[0.22em] text-[color:var(--paper)]/70 text-left">
-              Giải thưởng
-              <br />
-              cấp tỉnh, quốc gia
-            </span>
-          </div>
-          <span className="h-10 w-px bg-[color:var(--paper)]/20 hidden md:block" />
-          <div className="flex items-center gap-3">
-            <span className="font-display text-5xl italic text-[color:var(--sunshine)] tabular">
-              100%
-            </span>
-            <span className="text-sm uppercase tracking-[0.22em] text-[color:var(--paper)]/70 text-left">
-              Đạt chứng chỉ
-              <br />
-              Cambridge YLE
-            </span>
-          </div>
-        </motion.div>
-      </div>
+              </article>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Reveal>
     </section>
   );
 }
+
+export default Honor;

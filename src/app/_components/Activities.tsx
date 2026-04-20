@@ -1,132 +1,177 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
-import { Reveal } from "./Reveal";
-import { Tape } from "./Decor";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
-import a1 from "@/assets/images/hoat_dong/1.jpg";
-import a2 from "@/assets/images/hoat_dong/2.jpg";
-import a3 from "@/assets/images/tieng_anh_tieu_hoc/1.jpg";
-import a4 from "@/assets/images/hoat_dong/4.jpg";
-import a6 from "@/assets/images/hoat_dong/6.jpg";
+import "swiper/css";
 
-const ITEMS = [
-  {
-    src: a1,
-    caption: "Storytelling Friday",
-    rotate: -3,
-    span: "col-span-6 row-span-2 lg:col-span-4 lg:row-span-2",
-  },
-  {
-    src: a2,
-    caption: "Halloween mini-play",
-    rotate: 4,
-    span: "col-span-6 lg:col-span-3",
-  },
-  {
-    src: a3,
-    caption: "Outdoor English",
-    rotate: -2,
-    span: "col-span-6 lg:col-span-5",
-  },
-  {
-    src: a4,
-    caption: "Reading corner",
-    rotate: 3,
-    span: "col-span-6 lg:col-span-3",
-  },
-  {
-    src: a6,
-    caption: "Field trip",
-    rotate: -4,
-    span: "col-span-6 lg:col-span-4",
-  },
+import { hoatDongImages } from "@/app/_data/assets";
+import Reveal from "./Reveal";
+
+const captions = [
+  "Sân chơi ngoại khoá",
+  "Thuyết trình tự tin",
+  "Giờ học sáng tạo",
+  "Teamwork & Games",
+  "Khoảnh khắc đáng nhớ",
+  "Cùng nhau toả sáng",
 ];
 
 export function Activities() {
   return (
-    <section id="activities" className="relative py-24 lg:py-32">
-      <div className="mx-auto max-w-[1400px] px-5 lg:px-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 lg:mb-20">
-          <div className="max-w-2xl">
-            <Reveal>
-              <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.32em] text-[color:var(--ink-soft)]">
-                <span className="h-px w-8 bg-[color:var(--ink)]" />§ 03 — Hoạt
-                động
-              </p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h2 className="mt-4 font-display text-[clamp(2.6rem,6.5vw,5.5rem)] leading-[0.95] tracking-[-0.02em]">
-                Học vui —{" "}
-                <span className="italic text-[color:var(--brand-red)]">
-                  nhớ lâu.
-                </span>
-              </h2>
-            </Reveal>
-          </div>
-          <Reveal delay={0.2} className="max-w-md">
-            <p className="text-lg leading-[1.75] text-[color:var(--ink-soft)]">
-              Mỗi tháng một chủ đề. Mỗi tuần một hoạt động. Những khoảnh khắc
-              học trò ở MyEnglish — được lưu lại như một cuốn album tuổi thơ.
+    <section
+      id="activities"
+      className="relative py-20 lg:py-28 bg-white overflow-hidden"
+    >
+      <div
+        className="absolute inset-0 bg-grid opacity-60 pointer-events-none"
+        aria-hidden
+      />
+
+      <div className="container mx-auto relative">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 text-primary font-display font-bold text-xl">
+              <span className="h-px w-8 bg-primary" />
+              Hoạt động
+            </span>
+            <h2 className="mt-2 font-display font-bold tracking-tight text-balance text-4xl sm:text-5xl lg:text-6xl text-secondary max-w-2xl">
+              Lớp học là sân chơi
+              <span className="italic text-primary"> của các bé.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-secondary/70 max-w-md">
+              Mỗi khoảnh khắc tại MyEnglish đều là một trải nghiệm — nơi các bé
+              vừa học, vừa chơi, vừa làm bạn với tiếng Anh.
             </p>
           </Reveal>
         </div>
 
-        {/* Masonry-ish grid */}
-        <div className="grid grid-cols-12 auto-rows-[180px] sm:auto-rows-[220px] lg:auto-rows-[240px] gap-4 lg:gap-5">
-          {ITEMS.map((it, i) => (
-            <motion.figure
-              key={i}
-              initial={{ opacity: 0, y: 40, rotate: 0, scale: 0.96 }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-                rotate: it.rotate,
-                scale: 1,
-              }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                duration: 0.9,
-                delay: (i % 3) * 0.12,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              whileHover={{ rotate: 0, scale: 1.02, zIndex: 10 }}
-              className={`group relative ${it.span} overflow-hidden rounded-2xl border-2 border-[color:var(--ink)] bg-paper-soft shadow-bumper`}
-            >
-              <Image
-                src={it.src}
-                alt={it.caption}
-                fill
-                sizes="(min-width:1024px) 30vw, 50vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/0 to-black/0 opacity-90" />
-              <figcaption className="absolute inset-x-0 bottom-0 p-4 flex items-center justify-between text-[color:var(--paper)]">
-                <span className="font-script text-xl leading-none">
-                  {it.caption}
-                </span>
-                <span className="font-display italic text-sm opacity-80">
-                  N° {String(i + 1).padStart(2, "0")}
-                </span>
-              </figcaption>
-              {i === 0 && (
-                <Tape
-                  className="absolute -top-3 left-8 h-6 w-24 z-10"
-                  rotate={-6}
-                />
-              )}
-              {i === 2 && (
-                <Tape
-                  className="absolute -top-3 right-8 h-6 w-20 z-10"
-                  rotate={6}
-                  color="var(--brand-red)"
-                />
-              )}
-            </motion.figure>
-          ))}
+        <div className="mt-12 hidden lg:grid grid-cols-12 grid-rows-[220px_220px_220px] gap-4">
+          <Tile
+            img={hoatDongImages[0]}
+            caption={captions[0]}
+            className="col-span-5 row-span-2"
+            priority
+          />
+          <Tile
+            img={hoatDongImages[1]}
+            caption={captions[1]}
+            className="col-span-4 row-span-1"
+          />
+          <Tile
+            img={hoatDongImages[2]}
+            caption={captions[2]}
+            className="col-span-3 row-span-2"
+          />
+          <Tile
+            img={hoatDongImages[3]}
+            caption={captions[3]}
+            className="col-span-4 row-span-1"
+          />
+          <Tile
+            img={hoatDongImages[4]}
+            caption={captions[4]}
+            className="col-span-7 row-span-1"
+          />
+          <Tile
+            img={hoatDongImages[5]}
+            caption={captions[5]}
+            className="col-span-5 row-span-1"
+          />
+        </div>
+
+        <div className="mt-10 lg:hidden">
+          <Swiper
+            modules={[Autoplay]}
+            slidesPerView={1.15}
+            spaceBetween={16}
+            centeredSlides
+            loop
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            breakpoints={{
+              640: { slidesPerView: 2.1, centeredSlides: false },
+            }}
+          >
+            {hoatDongImages.map((img, i) => (
+              <SwiperSlide key={i}>
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden ring-1 ring-black/5">
+                  <Image
+                    src={img}
+                    alt={captions[i] ?? `Hoạt động ${i + 1}`}
+                    fill
+                    sizes="(max-width: 640px) 90vw, 50vw"
+                    className="object-cover"
+                    placeholder="blur"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+                    <span className="text-white font-display font-semibold">
+                      {captions[i]}
+                    </span>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </section>
   );
 }
+
+function Tile({
+  img,
+  caption,
+  className,
+  priority,
+}: {
+  img: (typeof hoatDongImages)[number];
+  caption: string;
+  className?: string;
+  priority?: boolean;
+}) {
+  return (
+    <Reveal
+      className={`relative group overflow-hidden rounded-[24px] ring-1 ring-black/5 ${
+        className ?? ""
+      }`}
+    >
+      <Image
+        src={img}
+        alt={caption}
+        fill
+        sizes="(max-width: 1024px) 50vw, 33vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+        placeholder="blur"
+        priority={priority}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
+      <div className="absolute inset-x-0 bottom-0 p-5 flex items-end justify-between gap-3">
+        <span className="font-display text-lg font-semibold text-white drop-shadow">
+          {caption}
+        </span>
+        <span className="h-8 w-8 rounded-full bg-white/95 text-primary grid place-items-center translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden
+          >
+            <path
+              d="M7 17L17 7M17 7H9M17 7v8"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+      </div>
+    </Reveal>
+  );
+}
+
+export default Activities;

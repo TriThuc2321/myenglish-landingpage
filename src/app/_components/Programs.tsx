@@ -1,345 +1,157 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { motion } from "motion/react";
-import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Autoplay,
-  EffectCoverflow,
-  Keyboard,
-  Mousewheel,
-  Navigation,
-} from "swiper/modules";
-import type { Swiper as SwiperClass } from "swiper";
+import { EffectCoverflow, Autoplay, Pagination } from "swiper/modules";
+import { Button } from "@heroui/button";
+import { motion } from "motion/react";
 
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
 
-import { Reveal } from "./Reveal";
-import { Sparkle, Tape } from "./Decor";
+import { tieuHocImages } from "@/app/_data/assets";
+import Reveal from "./Reveal";
 
-import elementary1 from "@/assets/images/tieng_anh_tieu_hoc/1.jpg";
-import elementary2 from "@/assets/images/tieng_anh_tieu_hoc/2.jpg";
-import elementary3 from "@/assets/images/tieng_anh_tieu_hoc/3.jpg";
-import elementary4 from "@/assets/images/tieng_anh_tieu_hoc/4.jpg";
-import elementary5 from "@/assets/images/tieng_anh_tieu_hoc/5.jpg";
-
-const IMAGES = [
-  elementary1,
-  elementary2,
-  elementary3,
-  elementary4,
-  elementary5,
-];
-
-const OUTCOMES = [
-  { k: "4 kỹ năng", v: "Nghe · Nói · Đọc · Viết cân bằng" },
-  { k: "A1 → A2", v: "Theo khung CEFR cho 6–11 tuổi" },
-  { k: "2 buổi/tuần", v: "Nhịp học đều, không quá tải" },
-  { k: "PBL", v: "Project-based & Role-play hàng tuần" },
+const highlights = [
+  {
+    title: "Phát âm chuẩn từ gốc",
+    desc: "Các bé làm quen với phát âm đúng, nghe tốt và tự tin nói ngay từ buổi đầu.",
+  },
+  {
+    title: "Học qua hoạt động",
+    desc: "Trò chơi, hát, đóng vai — biến mỗi bài học thành một trải nghiệm đáng nhớ.",
+  },
+  {
+    title: "Thầy cô đồng hành",
+    desc: "Lớp nhỏ, sĩ số vừa phải để thầy cô quan tâm tới từng bạn học sinh.",
+  },
 ];
 
 export function Programs() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const total = IMAGES.length;
-  const progress = ((activeIndex + 1) / total) * 100;
-
   return (
     <section
       id="programs"
-      className="relative py-24 lg:py-32 bg-[color:var(--ink)] text-[color:var(--paper)] overflow-hidden"
+      className="relative py-20 lg:py-28 bg-paper overflow-hidden"
     >
-      {/* Dotted backdrop */}
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-40 top-20 h-[500px] w-[500px] rounded-full bg-[color:var(--brand-red)]/20 blur-3xl"
-      />
+      <div className="container mx-auto">
+        <Reveal className="max-w-3xl">
+          <span className="inline-flex items-center gap-2 text-primary font-bold text-xl">
+            <span className="h-px w-8 bg-primary" />
+            Chương trình nổi bật
+          </span>
+          <h2 className="mt-2 font-display font-bold tracking-tight text-balance text-4xl sm:text-5xl lg:text-6xl text-secondary">
+            Tiếng Anh <span className="italic text-primary">Tiểu học</span>
+            <br />
+            đồng hành cùng bé.
+          </h2>
+          <p className="mt-5 text-secondary/70 text-lg max-w-2xl">
+            Lộ trình được thiết kế riêng cho lứa tuổi tiểu học — kết hợp bốn kỹ
+            năng nghe, nói, đọc, viết cùng các hoạt động sáng tạo để bé yêu
+            tiếng Anh mỗi ngày.
+          </p>
+        </Reveal>
 
-      <div className="relative mx-auto max-w-[1400px] px-5 lg:px-10">
-        <div className="grid grid-cols-12 gap-6 lg:gap-10 items-end">
-          <div className="col-span-12 lg:col-span-6">
-            <Reveal>
-              <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.32em] text-[color:var(--paper)]/60">
-                <span className="h-px w-8 bg-[color:var(--paper)]/60" />§ 02 —
-                Chương trình chủ lực
-              </p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h2 className="mt-4 font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.95] tracking-[-0.02em]">
-                Tiếng Anh{" "}
-                <span className="italic text-[color:var(--sunshine)]">
-                  Tiểu Học
-                </span>
-              </h2>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <p className="mt-6 max-w-xl text-lg leading-[1.8] text-[color:var(--paper)]/75">
-                Hành trang vững vàng cho các em{" "}
-                <span className="font-display italic text-[color:var(--sunshine)]">
-                  6–11 tuổi
-                </span>
-                : tình yêu với ngôn ngữ, tư duy phản biện bằng tiếng Anh, và
-                thói quen học tập bền bỉ sẽ theo các em suốt chặng đường phía
-                trước.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="col-span-12 lg:col-span-5 lg:col-start-8">
-            <Reveal delay={0.2}>
-              <ul className="grid grid-cols-2 gap-4">
-                {OUTCOMES.map((o) => (
-                  <li
-                    key={o.k}
-                    className="rounded-2xl border border-[color:var(--paper)]/15 bg-[color:var(--paper)]/5 p-5 backdrop-blur-sm"
-                  >
-                    <div className="font-display italic text-2xl text-[color:var(--sunshine)]">
-                      {o.k}
-                    </div>
-                    <p className="mt-2 text-sm leading-relaxed text-[color:var(--paper)]/75">
-                      {o.v}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-        </div>
-
-        {/* Swiper — coverflow editorial carousel */}
-        <Reveal delay={0.3} className="mt-16 lg:mt-24">
-          <div className="relative">
-            {/* Edge fades */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-0 w-24 z-20 bg-gradient-to-r from-[color:var(--ink)] to-transparent"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 right-0 w-24 z-20 bg-gradient-to-l from-[color:var(--ink)] to-transparent"
-            />
-
+        <div className="mt-14 grid lg:grid-cols-[1.15fr_1fr] gap-12 items-center">
+          <Reveal delay={0.1} className="relative">
+            <div className="absolute -inset-6 lg:-inset-10 rounded-[48px] bg-gradient-to-br from-primary/15 via-white/0 to-secondary/15 blur-2xl -z-10" />
             <Swiper
-              modules={[
-                Navigation,
-                Autoplay,
-                EffectCoverflow,
-                Keyboard,
-                Mousewheel,
-              ]}
+              modules={[EffectCoverflow, Autoplay, Pagination]}
               effect="coverflow"
               grabCursor
               centeredSlides
-              rewind
-              speed={900}
-              autoplay={{
-                delay: 3800,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-              keyboard={{ enabled: true }}
-              mousewheel={{ forceToAxis: true, sensitivity: 0.6 }}
+              loop
+              autoplay={{ delay: 3200, disableOnInteraction: false }}
               slidesPerView="auto"
               coverflowEffect={{
-                rotate: 8,
-                stretch: 0,
+                rotate: 0,
+                stretch: 40,
                 depth: 180,
-                modifier: 1.4,
+                modifier: 1,
                 slideShadows: false,
               }}
-              navigation={{
-                prevEl: ".programs-prev",
-                nextEl: ".programs-next",
-              }}
-              onSlideChange={(s: SwiperClass) => setActiveIndex(s.realIndex)}
-              className="programs-swiper"
+              pagination={{ clickable: true }}
+              className="!pb-12"
             >
-              {IMAGES.map((img, i) => (
+              {tieuHocImages.map((img, i) => (
                 <SwiperSlide
                   key={i}
-                  className="!w-[260px] sm:!w-[320px] lg:!w-[380px]"
+                  className="!w-[76%] sm:!w-[62%] lg:!w-[70%]"
                 >
-                  <motion.figure
-                    whileHover={{ y: -6 }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className="programs-slide-card relative aspect-[16/9] rounded-3xl overflow-hidden border-2 border-[color:var(--paper)]/15 bg-black"
+                  <motion.div
+                    whileHover={{ scale: 1.01 }}
+                    className="relative aspect-[4/5] rounded-[28px] overflow-hidden ring-8 ring-white shadow-[0_30px_60px_-20px_rgba(15,16,32,0.35)]"
                   >
                     <Image
                       src={img}
-                      alt={`Tiếng Anh Tiểu Học ${i + 1}`}
+                      alt={`Tiếng Anh tiểu học · ${i + 1}`}
                       fill
-                      sizes="(min-width:1024px) 380px, (min-width:640px) 320px, 260px"
+                      sizes="(max-width: 1024px) 70vw, 45vw"
                       className="object-cover"
-                      priority={i === 0}
+                      placeholder="blur"
                     />
-
-                    {/* Lesson caption */}
-                    <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-black/85 via-black/40 to-transparent">
-                      <span
-                        aria-hidden
-                        className="programs-slide-rule block h-[2px] w-16 origin-left scale-x-0 bg-[color:var(--sunshine)] transition-transform duration-700"
-                      />
-                      <div className="mt-3 flex items-center justify-between">
-                        <div className="flex items-baseline gap-3">
-                          <span className="programs-slide-number font-display italic text-3xl leading-none text-[color:var(--paper)]/80 transition-colors">
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
-                          <span className="text-[11px] uppercase tracking-[0.28em] text-[color:var(--paper)]/70">
-                            Lesson
-                          </span>
-                        </div>
-                        <Sparkle size={18} color="var(--sunshine)" />
-                      </div>
+                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 text-xs font-semibold uppercase tracking-wider text-secondary">
+                      Lớp {i + 1}
                     </div>
-
-                    {i === 0 && (
-                      <Tape
-                        className="absolute -top-3 left-10 h-6 w-24"
-                        rotate={-8}
-                        color="var(--sunshine)"
-                      />
-                    )}
-                    {i === 2 && (
-                      <Tape
-                        className="absolute -top-3 right-10 h-6 w-20"
-                        rotate={6}
-                        color="var(--brand-red)"
-                      />
-                    )}
-                  </motion.figure>
+                  </motion.div>
                 </SwiperSlide>
               ))}
             </Swiper>
 
-            {/* Control rail */}
-            <div className="relative z-30 mt-10 grid grid-cols-12 items-center gap-6">
-              {/* Slide counter */}
-              <div className="col-span-5 sm:col-span-3 flex items-baseline gap-3">
-                <span
-                  key={activeIndex}
-                  className="font-display italic text-5xl sm:text-6xl leading-none text-[color:var(--sunshine)] inline-block"
-                  style={{ animation: "programs-count 0.5s ease-out" }}
-                >
-                  {String(activeIndex + 1).padStart(2, "0")}
-                </span>
-                <span className="text-[color:var(--paper)]/40 font-display text-2xl">
-                  /
-                </span>
-                <span className="font-display italic text-2xl text-[color:var(--paper)]/60">
-                  {String(total).padStart(2, "0")}
-                </span>
-              </div>
+            <style jsx global>{`
+              .swiper-pagination-bullet {
+                background: #2f338a;
+                opacity: 0.25;
+                width: 8px;
+                height: 8px;
+              }
+              .swiper-pagination-bullet-active {
+                background: #cf242c;
+                opacity: 1;
+                width: 28px;
+                border-radius: 9999px;
+              }
+            `}</style>
+          </Reveal>
 
-              {/* Progress rail */}
-              <div className="col-span-12 sm:col-span-6 order-last sm:order-none">
-                <div className="flex items-center gap-4">
-                  <span className="hidden sm:block text-[10px] uppercase tracking-[0.32em] text-[color:var(--paper)]/45">
-                    Bài học
-                  </span>
-                  <div
-                    className="programs-progress flex-1"
-                    style={
-                      {
-                        ["--progress" as string]: `${progress}%`,
-                      } as React.CSSProperties
-                    }
-                    role="progressbar"
-                    aria-valuenow={activeIndex + 1}
-                    aria-valuemin={1}
-                    aria-valuemax={total}
-                  />
-                </div>
-              </div>
+          <div className="space-y-4">
+            {highlights.map((h, i) => (
+              <Reveal key={h.title} delay={0.15 + i * 0.08}>
+                <article className="group relative p-6 rounded-2xl bg-white border border-secondary/10 hover:border-primary/40 transition-colors shadow-[0_10px_30px_-20px_rgba(15,16,32,0.25)]">
+                  <div className="flex items-start gap-4">
+                    <div className="shrink-0 grid place-items-center h-12 w-12 rounded-xl bg-secondary text-white font-display text-xl font-bold">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div>
+                      <h3 className="font-display text-xl font-semibold text-secondary">
+                        {h.title}
+                      </h3>
+                      <p className="mt-1.5 text-secondary/70 leading-relaxed">
+                        {h.desc}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
 
-              {/* Arrows */}
-              <div className="col-span-7 sm:col-span-3 flex justify-end gap-3">
-                <button
-                  type="button"
-                  aria-label="Bài học trước"
-                  className="programs-prev group relative grid h-14 w-14 place-items-center rounded-full border border-[color:var(--paper)]/25 bg-transparent transition-all hover:border-[color:var(--sunshine)] hover:bg-[color:var(--sunshine)] hover:text-[color:var(--ink)]"
-                >
-                  <span className="transition-transform duration-500 group-hover:-translate-x-1">
-                    <ArrowIcon direction="left" />
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  aria-label="Bài học sau"
-                  className="programs-next group relative grid h-14 w-14 place-items-center rounded-full border border-[color:var(--paper)]/25 bg-[color:var(--brand-red)] text-[color:var(--paper)] transition-all hover:bg-[color:var(--sunshine)] hover:text-[color:var(--ink)] hover:border-[color:var(--sunshine)]"
-                >
-                  <span className="transition-transform duration-500 group-hover:translate-x-1">
-                    <ArrowIcon direction="right" />
-                  </span>
-                  {/* Tape flourish on the primary control */}
-                  <Tape
-                    className="pointer-events-none absolute -top-2 -right-3 h-3 w-10"
-                    rotate={18}
-                    color="var(--sunshine)"
-                  />
-                </button>
-              </div>
-            </div>
+            <Reveal delay={0.5} className="pt-2">
+              <Button
+                as="a"
+                href="#contact"
+                color="primary"
+                radius="full"
+                size="lg"
+                className="font-semibold shadow-[0_10px_28px_-10px_rgba(207,36,44,0.7)]"
+              >
+                Đăng ký tư vấn lớp tiểu học
+              </Button>
+            </Reveal>
           </div>
-        </Reveal>
-
-        <Reveal
-          delay={0.4}
-          className="mt-14 flex flex-wrap items-center justify-between gap-6"
-        >
-          <p className="font-script text-2xl text-[color:var(--sunshine)]">
-            &ldquo; học mà như chơi — chơi mà hiểu sâu &rdquo;
-          </p>
-          <Link
-            href="#contact"
-            className="inline-flex items-center gap-3 rounded-full border-2 border-[color:var(--paper)] px-7 py-3.5 text-base font-semibold text-[color:var(--paper)] transition-colors hover:bg-[color:var(--paper)] hover:text-[color:var(--ink)]"
-          >
-            Nhận lộ trình cho con
-            <span aria-hidden>→</span>
-          </Link>
-        </Reveal>
+        </div>
       </div>
-
-      {/* Inline keyframes used by the counter */}
-      <style>{`
-        @keyframes programs-count {
-          0%   { transform: translateY(16px); opacity: 0; filter: blur(6px); }
-          100% { transform: translateY(0);    opacity: 1; filter: blur(0); }
-        }
-      `}</style>
     </section>
   );
 }
 
-function ArrowIcon({ direction }: { direction: "left" | "right" }) {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      style={{
-        transform: direction === "left" ? "rotate(180deg)" : undefined,
-      }}
-    >
-      <path d="M5 12h14" />
-      <path d="M13 5l7 7-7 7" />
-    </svg>
-  );
-}
+export default Programs;

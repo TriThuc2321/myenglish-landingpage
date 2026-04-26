@@ -25,7 +25,9 @@ const caveat = Caveat({
   display: "swap",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  "https://myenglish-landingpage.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

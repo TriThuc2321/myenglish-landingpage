@@ -4,7 +4,12 @@ import Image from "next/image";
 import { Button } from "@heroui/button";
 import { motion } from "motion/react";
 
-import { hoatDongImages, tieuHocImages, site } from "@/app/_data/assets";
+import { SITE } from "@/data/site";
+import {
+  activitiesImages,
+  communicationTopicImages,
+  banner,
+} from "@/lib/images";
 
 export function Hero() {
   return (
@@ -35,7 +40,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-secondary/15 text-secondary text-xs font-semibold uppercase tracking-[0.18em] shadow-sm"
             >
               <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              Trung tâm Anh ngữ · Cần Thơ
+              {SITE.brand.name} — Cần Thơ
             </motion.div>
 
             <motion.h1
@@ -46,7 +51,7 @@ export function Hero() {
                 delay: 0.08,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="mt-5 font-display font-bold tracking-[-0.02em] text-balance text-[44px] leading-[1.02] sm:text-6xl lg:text-[76px] xl:text-[86px] text-secondary"
+              className="mt-5 font-display font-bold tracking-[-0.02em] text-balance text-[44px] leading-[1.02] sm:text-6xl lg:text-[72px] xl:text-[80px] text-secondary"
             >
               Better English,
               <br />
@@ -70,9 +75,7 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="mt-6 max-w-xl text-lg text-secondary/75 leading-relaxed text-pretty"
             >
-              {site.name} — nơi các bạn nhỏ tiểu học ở Cần Thơ tự tin nói tiếng
-              Anh, yêu tiếng Anh, và biến mỗi buổi học thành một hành trình vui
-              vẻ cùng thầy cô tận tâm.
+              {SITE.intro.lead}
             </motion.p>
 
             <motion.div
@@ -99,7 +102,7 @@ export function Hero() {
                 size="lg"
                 className="font-semibold border-secondary/30 text-secondary data-[hover=true]:bg-secondary data-[hover=true]:text-white"
               >
-                Khám phá chương trình
+                Chương trình chủ lực
                 <ArrowIcon />
               </Button>
             </motion.div>
@@ -110,9 +113,12 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className="mt-12 grid grid-cols-3 gap-4 max-w-md"
             >
-              <HeroStat kicker="Lớp" value="Tiểu học" />
-              <HeroStat kicker="Tại" value="Cần Thơ" />
-              <HeroStat kicker="Hotline" value={site.hotlines[0]} />
+              <HeroStat kicker="Cambridge" value="K12 → KET" />
+              <HeroStat kicker="IELTS" value="Pre → 6.5" />
+              <HeroStat
+                kicker="Hotline"
+                value={SITE.contact.hotlines[0] ?? ""}
+              />
             </motion.dl>
           </div>
 
@@ -145,11 +151,27 @@ function PhotoCollage() {
         initial={{ opacity: 0, y: 40, rotate: -6 }}
         animate={{ opacity: 1, y: 0, rotate: -4 }}
         transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute top-3 left-0 z-10 w-[60%] sm:w-[58%] aspect-3/4 rounded-[28px] overflow-hidden shadow-[0_30px_60px_-20px_rgba(47,51,138,0.35)] ring-8 ring-white"
+        className="absolute -top-2 left-0 right-0 z-0 h-[200px] sm:h-[220px] rounded-[24px] overflow-hidden shadow-lg ring-8 ring-white opacity-90"
       >
         <Image
-          src={hoatDongImages[0]}
-          alt="Hoạt động học viên MyEnglish"
+          src={banner}
+          alt="MYENGLISH banner"
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 90vw, 40vw"
+          priority
+        />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 40, rotate: -6 }}
+        animate={{ opacity: 1, y: 0, rotate: -4 }}
+        transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute top-24 sm:top-28 left-0 z-10 w-[60%] sm:w-[58%] aspect-3/4 rounded-[28px] overflow-hidden shadow-[0_30px_60px_-20px_rgba(47,51,138,0.35)] ring-8 ring-white"
+      >
+        <Image
+          src={activitiesImages[0]}
+          alt="Hoạt động trải nghiệm MyEnglish"
           fill
           sizes="(max-width: 1024px) 60vw, 30vw"
           className="object-cover"
@@ -162,11 +184,11 @@ function PhotoCollage() {
         initial={{ opacity: 0, y: 40, rotate: 8 }}
         animate={{ opacity: 1, y: 0, rotate: 5 }}
         transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute top-16 right-1 sm:right-0 z-20 w-[64%] sm:w-[62%] aspect-4/5 rounded-[28px] overflow-hidden shadow-[0_30px_60px_-20px_rgba(207,36,44,0.35)] ring-8 ring-white"
+        className="absolute top-36 right-0 sm:right-0 z-20 w-[64%] sm:w-[62%] aspect-4/5 rounded-[28px] overflow-hidden shadow-[0_30px_60px_-20px_rgba(207,36,44,0.35)] ring-8 ring-white"
       >
         <Image
-          src={tieuHocImages[0] ?? hoatDongImages[1]}
-          alt="Lớp tiếng Anh tiểu học"
+          src={communicationTopicImages[0]}
+          alt="Giao tiếp theo chủ đề"
           fill
           sizes="(max-width: 1024px) 60vw, 30vw"
           className="object-cover"
@@ -178,7 +200,7 @@ function PhotoCollage() {
         initial={{ opacity: 0, scale: 0.7, rotate: -12 }}
         animate={{ opacity: 1, scale: 1, rotate: -8 }}
         transition={{ duration: 0.7, delay: 0.55 }}
-        className="absolute top-4 right-3 sm:right-4 z-30 hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-white font-semibold shadow-xl"
+        className="absolute top-32 right-2 sm:right-4 z-30 hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-white font-semibold shadow-xl"
       >
         <span className="h-1.5 w-1.5 rounded-full bg-white" />
         <span className="text-sm tracking-wide">Đang tuyển sinh</span>
@@ -188,30 +210,20 @@ function PhotoCollage() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.7 }}
-        className="absolute bottom-2 left-2 sm:left-6 z-30 flex items-center gap-3 px-4 py-3 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 max-w-[260px]"
+        className="absolute bottom-0 left-2 sm:left-6 z-30 flex items-center gap-3 px-4 py-3 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 max-w-[280px]"
       >
         <div className="grid place-items-center h-10 w-10 rounded-xl bg-secondary text-white">
           <StarIcon />
         </div>
         <div className="leading-tight">
           <div className="font-display text-secondary font-semibold">
-            Học vui · Học chất
+            Toàn diện mọi thế hệ
           </div>
           <div className="text-xs text-secondary/60">
-            Giáo viên tận tâm · lớp nhỏ
+            Thiếu nhi · IELTS · Giao tiếp
           </div>
         </div>
       </motion.div>
-
-      <motion.span
-        initial={{ opacity: 0, rotate: -20 }}
-        animate={{ opacity: 1, rotate: -12 }}
-        transition={{ duration: 0.8, delay: 0.9 }}
-        className="absolute top-1/2 -left-2 md:left-0 lg:-left-4 z-20 font-script text-primary text-3xl sm:text-4xl drop-shadow-sm"
-        aria-hidden
-      >
-        hello ✨
-      </motion.span>
     </div>
   );
 }

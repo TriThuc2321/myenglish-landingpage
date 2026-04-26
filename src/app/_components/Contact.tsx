@@ -5,7 +5,7 @@ import { Input, Textarea } from "@heroui/input";
 import { Button } from "@heroui/button";
 import { addToast } from "@heroui/toast";
 
-import { site } from "@/app/_data/assets";
+import { SITE } from "@/data/site";
 import Reveal from "./Reveal";
 
 const PHONE_RE = /^[0-9 +().\-]{8,}$/;
@@ -88,11 +88,11 @@ export function Contact() {
             <h2 className="mt-2 font-display font-bold tracking-tight text-balance text-4xl sm:text-5xl lg:text-6xl text-secondary">
               Để lại thông tin,
               <br />
-              <span className="italic text-primary">MyEnglish gọi lại.</span>
+              <span className="italic text-primary">MYENGLISH gọi lại.</span>
             </h2>
             <p className="mt-5 text-secondary/70 text-lg max-w-md">
-              Đăng ký test đầu vào miễn phí, nhận tư vấn lộ trình học cho bé chỉ
-              trong ít phút.
+              Tư vấn lộ trình Cambridge, IELTS hoặc giao tiếp — hotline, email
+              & fanpage luôn sẵn sàng hỗ trợ bạn.
             </p>
 
             <form
@@ -101,7 +101,7 @@ export function Contact() {
               className="mt-8 p-6 sm:p-8 rounded-[28px] bg-white border border-secondary/10 shadow-[0_30px_60px_-30px_rgba(15,16,32,0.3)] space-y-5"
             >
               <Input
-                label="Họ và tên phụ huynh / bé"
+                label="Họ và tên phụ huynh / bé / học viên"
                 value={name}
                 onValueChange={setName}
                 isRequired
@@ -145,8 +145,8 @@ export function Contact() {
               </Button>
 
               <p className="text-xs text-secondary/50 text-center">
-                Hoặc gọi trực tiếp:{" "}
-                {site.hotlines.map((h, i) => (
+                Hoặc gọi:{" "}
+                {SITE.contact.hotlines.map((h, i) => (
                   <span key={h}>
                     <a
                       href={`tel:${h.replace(/\s/g, "")}`}
@@ -154,7 +154,7 @@ export function Contact() {
                     >
                       {h}
                     </a>
-                    {i < site.hotlines.length - 1 ? " · " : ""}
+                    {i < SITE.contact.hotlines.length - 1 ? " · " : ""}
                   </span>
                 ))}
               </p>
@@ -188,16 +188,16 @@ export function Contact() {
                 </div>
                 <div>
                   <div className="text-[11px] uppercase tracking-[0.18em] font-semibold text-secondary/60">
-                    Cơ sở MyEnglish
+                    Cơ sở MYENGLISH
                   </div>
                   <div className="mt-1 font-display text-xl font-semibold text-secondary">
-                    {site.address}
+                    {SITE.contact.address}
                   </div>
                 </div>
               </div>
               <div className="aspect-[5/4] w-full bg-secondary/5">
                 <iframe
-                  src={site.mapEmbedSrc}
+                  src={SITE.contact.mapEmbedSrc}
                   className="w-full h-full border-0"
                   loading="lazy"
                   allowFullScreen
@@ -209,7 +209,7 @@ export function Contact() {
 
             <div className="mt-5 grid sm:grid-cols-2 gap-3">
               <a
-                href={`tel:${site.hotlines[0].replace(/\s/g, "")}`}
+                href={`tel:${SITE.contact.hotlines[0].replace(/\s/g, "")}`}
                 className="group flex items-center gap-3 p-4 rounded-2xl bg-primary text-white hover:bg-primary-600 transition-colors"
               >
                 <span className="grid place-items-center h-10 w-10 rounded-xl bg-white/15">
@@ -228,17 +228,17 @@ export function Contact() {
                     />
                   </svg>
                 </span>
-                <div className="leading-tight">
+                <div className="leading-tight min-w-0">
                   <div className="text-[11px] uppercase tracking-wider opacity-80">
                     Hotline
                   </div>
-                  <div className="font-semibold">
-                    {site.hotlines.join(" · ")}
+                  <div className="font-semibold text-sm">
+                    {SITE.contact.hotlines.join(" · ")}
                   </div>
                 </div>
               </a>
               <a
-                href={site.facebook}
+                href={SITE.contact.facebook}
                 target="_blank"
                 rel="noreferrer noopener"
                 className="group flex items-center gap-3 p-4 rounded-2xl bg-secondary text-white hover:bg-secondary-600 transition-colors"
@@ -254,11 +254,42 @@ export function Contact() {
                     <path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.6-1.6h1.7V4.2c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.6V14h2.8v8h3.1z" />
                   </svg>
                 </span>
-                <div className="leading-tight">
+                <div className="leading-tight min-w-0">
                   <div className="text-[11px] uppercase tracking-wider opacity-80">
                     Facebook
                   </div>
-                  <div className="font-semibold">fb.com/mye2021</div>
+                  <div className="font-semibold text-sm">fb.com/mye2021</div>
+                </div>
+              </a>
+              <a
+                href={`mailto:${SITE.contact.email}`}
+                className="sm:col-span-2 flex items-center gap-3 p-4 rounded-2xl border-2 border-secondary/20 bg-white hover:border-primary/50 transition-colors"
+              >
+                <span className="grid place-items-center h-10 w-10 rounded-xl bg-secondary/10 text-secondary">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden
+                    className="text-secondary"
+                  >
+                    <path
+                      d="M4 6h16v12H4V6zm0 0l8 6 8-6"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+                <div className="leading-tight min-w-0">
+                  <div className="text-[11px] uppercase tracking-wider text-secondary/60">
+                    Email
+                  </div>
+                  <div className="font-semibold text-secondary text-sm break-all">
+                    {SITE.contact.email}
+                  </div>
                 </div>
               </a>
             </div>

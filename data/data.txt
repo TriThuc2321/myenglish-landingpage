@@ -1,18 +1,6 @@
 trung tâm: MYENGLISH – Better English, Better Life!
-Hotline: 0907 188 212 – 0939 039 947
-Địa chỉ: 37A Lê Hồng Phong-p.Thới An Đông, TP. Cần Thơ
-Facebook: https://www.facebook.com/mye2021
-Email: myenglish.cambridge@gmail.com
-iframe map: <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15712.520512077668!2d105.71732396677268!3d10.088422266354023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0875c27e78bf1%3A0xe968dc24fe086895!2sTrung%20T%C3%A2m%20Anh%20Ng%E1%BB%AF%20MY%20ENGLISH!5e0!3m2!1sen!2s!4v1776504527762!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-hình hoạt động: assets/images/hoat_dong
-hình poster khai giảng: assets/images/poster_khai_giang
-hình tiếng anh tiểu học: assets/images/tieng_anh_tieu_hoc
-hình vinh danh: assets/images/vinh_danh
-
-logo: assets/images/logo.png, assets/images/logo_vertical.png
-
-giới thiệu về MYENGLISH
+Giới thiệu về MYENGLISH
 MYENGLISH tự hào là đơn vị tiên phong, mang đến giải pháp đào tạo tiếng Anh toàn diện, giúp mọi thế hệ học viên bứt phá giới hạn bản thân.
 💎 Tại sao MYENGLISH là lựa chọn số 1 của Phụ huynh & Học viên?
 ✅ Đào tạo tiếng Anh Thiếu nhi & Thiếu niên: Chương trình học được thiết kế sinh động, khơi gợi niềm đam mê ngôn ngữ từ sớm, giúp các em hình thành tư duy tiếng Anh tự nhiên như người bản xứ.
@@ -79,3 +67,21 @@ Thực hành kỹ năng phân tích và làm bài
 Bổ sung thêm vốn từ vựng căn bản
 Giao và kiểm tra bài tập trực tiếp mỗi buổi học
 Thời gian học linh hoạt theo yêu cầu của người học
+
+Hotline: 0907 188 212 – 0939 039 947
+Địa chỉ: 37A Lê Hồng Phong-p.Thới An Đông, TP. Cần Thơ
+Facebook: https://www.facebook.com/mye2021
+Email: myenglish.cambridge@gmail.com
+iframe map: <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15712.520512077668!2d105.71732396677268!3d10.088422266354023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0875c27e78bf1%3A0xe968dc24fe086895!2sTrung%20T%C3%A2m%20Anh%20Ng%E1%BB%AF%20MY%20ENGLISH!5e0!3m2!1sen!2s!4v1776504527762!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+Màu sắc: light theme, chi tiết trong tailwind.config.js
+hình:
+src/assets/images/giao-tiep-chu-de: hoạt động giao tiếp chủ đề
+src/assets/images/giao-vien-nhan-vien
+src/assets/images/hoat-dong-trai-nghiem
+src/assets/images/thanh-tich
+
+banner: src/assets/images/banner.png
+logo: 
+hình vuông: logo: assets/images/logo.png
+hình chữ nhật: logo: assets/images/logo_vertical.png

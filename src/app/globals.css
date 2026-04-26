@@ -5,32 +5,50 @@
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 
 @theme {
-  --color-brand-red: #cf242c;
-  --color-brand-navy: #2f338a;
-  --color-cream: #fbf6ee;
-  --color-ink: #0f1020;
+  --animate-marquee-x: marquee-x 45s linear infinite;
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer base {
   html {
     @apply m-0 p-0;
-    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-[#fbf6ee] text-[#0f1020] m-0 h-full w-full p-0 font-body antialiased;
+    @apply text-content2-foreground bg-background dark:bg-secondary-100 m-0 h-full w-full p-0;
   }
 
-  ::selection {
-    background-color: #cf242c;
-    color: #fff;
-  }
-
+  /* Firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(47, 51, 138, 0.35) transparent;
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
   }
 
+  @media (prefers-color-scheme: dark) {
+    * {
+      scrollbar-color: rgba(255, 255, 255, 0.25);
+    }
+  }
+
+  /* WebKit */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -41,52 +59,15 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(47, 51, 138, 0.4);
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 9999px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
-}
 
-@layer utilities {
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, rgba(15, 16, 32, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(15, 16, 32, 0.06) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
-
-  .bg-dots {
-    background-image: radial-gradient(rgba(47, 51, 138, 0.18) 1px, transparent 1px);
-    background-size: 18px 18px;
-  }
-
-  .bg-paper {
-    background-color: #fbf6ee;
-    background-image:
-      radial-gradient(at 10% 0%, rgba(207, 36, 44, 0.08) 0, transparent 45%),
-      radial-gradient(at 90% 100%, rgba(47, 51, 138, 0.08) 0, transparent 45%);
-  }
-
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .text-pretty {
-    text-wrap: pretty;
-  }
-
-  .divider-slash {
-    background-image: repeating-linear-gradient(
-      135deg,
-      currentColor,
-      currentColor 1px,
-      transparent 1px,
-      transparent 8px
-    );
-  }
-
-  .swiper-nav-btn {
-    @apply grid place-items-center w-11 h-11 rounded-full border border-secondary/20 bg-white/90 backdrop-blur text-secondary hover:bg-secondary hover:text-white transition-colors cursor-pointer;
+  @media (prefers-color-scheme: dark) {
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
   }
 }

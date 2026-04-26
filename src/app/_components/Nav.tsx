@@ -2,23 +2,17 @@
 
 import Image from "next/image";
 import { Button } from "@heroui/button";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
-import { logos, site } from "@/app/_data/assets";
-
-const links = [
-  { id: "programs", label: "Chương trình" },
-  { id: "activities", label: "Hoạt động" },
-  { id: "posters", label: "Khai giảng" },
-  { id: "honor", label: "Vinh danh" },
-  { id: "about", label: "Về MyEnglish" },
-  { id: "contact", label: "Liên hệ" },
-];
+import { SITE } from "@/data/site";
+import { logo } from "@/lib/images";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement | null>(null);
+  const links = SITE.navigation;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -27,75 +21,92 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      if (!href.startsWith("#") || href === "#") return;
+      const id = href.slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const headerOffset = headerRef.current?.offsetHeight ?? 0;
+      const top =
+        target.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top, behavior: "smooth" });
+      if (typeof window !== "undefined") {
+        window.history.replaceState(null, "", href);
+      }
+      setOpen(false);
+    },
+    []
+  );
+
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-white/90 backdrop-blur-md border-b border-black/5 shadow-[0_4px_20px_-12px_rgba(15,16,32,0.2)]"
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between h-18 py-3">
+      <div className="container mx-auto flex items-center justify-between h-18 py-3 gap-3">
         <a
           href="#top"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.history.replaceState(null, "", " ");
+            setOpen(false);
+          }}
           className="flex items-center gap-2.5 group shrink-0"
-          aria-label={site.name}
+          aria-label={SITE.brand.name}
         >
           <div className="relative h-10 w-10 rounded-full grid place-items-center overflow-hidden transition">
             <Image
-              src={logos.horizontal}
+              src={logo}
               alt=""
+              width={40}
+              height={40}
               className="h-8 w-8 object-contain"
+              style={{ width: "auto", height: "2rem" }}
               priority
             />
           </div>
-          <div className="hidden sm:flex flex-col leading-none">
-            <span className="font-display text-lg font-bold tracking-tight text-secondary">
-              {site.name}
+          <div className="hidden sm:flex flex-col leading-none min-w-0">
+            <span className="font-display text-lg font-bold tracking-tight text-secondary truncate">
+              {SITE.brand.name}
             </span>
-            <span className="font-script text-[13px] text-primary -mt-0.5">
-              Better English, Better Life
+            <span className="font-script text-[13px] text-primary -mt-0.5 truncate">
+              {SITE.brand.tagline}
             </span>
           </div>
         </a>
 
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden xl:flex items-center flex-wrap justify-end gap-x-0.5 gap-y-1 max-w-[60%] 2xl:max-w-none">
           {links.map((l) => (
             <a
-              key={l.id}
-              href={`#${l.id}`}
-              className="px-3 py-2 text-sm font-medium text-secondary/80 hover:text-primary transition-colors relative group"
+              key={l.href}
+              href={l.href}
+              onClick={(e) => handleNavClick(e, l.href)}
+              className="px-2.5 py-1.5 text-sm font-medium text-secondary/80 hover:text-primary transition-colors relative group"
             >
               {l.label}
-              <span className="absolute left-3 right-3 -bottom-0.5 h-[2px] bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform" />
+              <span className="absolute left-2.5 right-2.5 -bottom-0.5 h-[2px] bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform" />
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <a
-            href={`tel:${site.hotlines[0].replace(/\s/g, "")}`}
-            className="hidden md:flex items-center gap-2 text-sm font-semibold text-secondary hover:text-primary transition-colors"
-          >
-            <span className="grid place-items-center h-9 w-9 rounded-full bg-primary/10 text-primary">
-              <PhoneIcon />
-            </span>
-            <span className="leading-tight">
-              <span className="block text-[11px] font-normal text-secondary/60 uppercase tracking-wider">
-                Hotline
-              </span>
-              {site.hotlines[0]}
-            </span>
-          </a>
-
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <Button
             as="a"
             href="#contact"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onClick={((e: any) => handleNavClick(e, "#contact")) as any}
             color="primary"
             radius="full"
             className="font-semibold shadow-[0_8px_24px_-8px_rgba(207,36,44,0.6)] hidden sm:inline-flex"
           >
-            Đăng ký học thử
+            Đăng ký ngay
           </Button>
 
           <button
@@ -103,7 +114,7 @@ export function Nav() {
             aria-label="Mở menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden grid place-items-center h-10 w-10 rounded-full border border-secondary/15 text-secondary"
+            className="xl:hidden grid place-items-center h-10 w-10 rounded-full border border-secondary/15 text-secondary"
           >
             <BurgerIcon open={open} />
           </button>
@@ -117,24 +128,24 @@ export function Nav() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="lg:hidden overflow-hidden border-t border-black/5 bg-white/95 backdrop-blur"
+            className="xl:hidden overflow-hidden border-t border-black/5 bg-white/95 backdrop-blur"
           >
-            <div className="container mx-auto py-4 flex flex-col gap-1">
+            <div className="container mx-auto py-4 flex flex-col gap-0.5 max-h-[70vh] overflow-y-auto">
               {links.map((l) => (
                 <a
-                  key={l.id}
-                  href={`#${l.id}`}
-                  onClick={() => setOpen(false)}
+                  key={l.href}
+                  href={l.href}
+                  onClick={(e) => handleNavClick(e, l.href)}
                   className="py-2.5 px-2 text-secondary font-medium border-b border-black/5 last:border-0"
                 >
                   {l.label}
                 </a>
               ))}
               <a
-                href={`tel:${site.hotlines[0].replace(/\s/g, "")}`}
+                href={`tel:${SITE.contact.hotlines[0].replace(/\s/g, "")}`}
                 className="mt-2 flex items-center gap-2 text-sm font-semibold text-primary"
               >
-                <PhoneIcon /> {site.hotlines.join(" — ")}
+                <PhoneIcon /> {SITE.contact.hotlines.join(" — ")}
               </a>
             </div>
           </motion.div>

@@ -2,11 +2,13 @@
 
 const phrases = [
   "MYENGLISH",
-  "Better English · Better Life",
-  "Tiếng Anh tiểu học",
+  "Cambridge & IELTS",
+  "Giao tiếp đột phá",
   "Cần Thơ",
-  "Học vui · Học chất",
-  "Lớp học tận tâm",
+  "Better English · Better Life",
+  "Mọi thế hệ học viên",
+  "Học vui — học chất",
+  "Công dân toàn cầu",
 ];
 
 export function Marquee() {

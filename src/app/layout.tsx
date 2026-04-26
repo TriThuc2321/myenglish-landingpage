@@ -28,11 +28,11 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   title: "MyEnglish — Better English, Better Life",
   description:
-    "Trung tâm Anh ngữ MyEnglish tại Cần Thơ: lớp học nhỏ, giáo viên tận tâm, phương pháp chuẩn quốc tế cho học sinh tiểu học.",
+    "MYENGLISH Cần Thơ — tiếng Anh Cambridge, IELTS & giao tiếp cho mọi thế hệ. Đào tạo toàn diện, đội ngũ tận tâm.",
   openGraph: {
     title: "MyEnglish — Better English, Better Life",
     description:
-      "Trung tâm Anh ngữ MyEnglish tại Cần Thơ: lớp học nhỏ, giáo viên tận tâm, phương pháp chuẩn quốc tế cho học sinh tiểu học.",
+      "MYENGLISH Cần Thơ: Cambridge, luyện thi IELTS, giao tiếp, thiếu nhi & người lớn — Better English, Better Life.",
     type: "website",
     locale: "vi_VN",
     siteName: "MyEnglish",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MyEnglish — Better English, Better Life",
     description:
-      "Trung tâm Anh ngữ MyEnglish tại Cần Thơ — lớp học nhỏ, giáo viên tận tâm cho học sinh tiểu học.",
+      "Trung tâm Anh ngữ MYENGLISH tại Cần Thơ — Cambridge, IELTS & giao tiếp.",
   },
 };
 
